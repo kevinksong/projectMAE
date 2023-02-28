@@ -85,10 +85,13 @@ namespace projectMAE
 
             //suppress displaying alerts (such as prompting to overwrite existing file
             excel.DisplayAlerts = false;
-            Worksheet ws;
 
-            //figure out how to open workboox if it exists, create new workboox if it doesn't
+            //open worksheet
+            Worksheet ws;
             ws = wb.Worksheets[1];
+
+            //first cell in each column is reserved for the filename of associated AutoCAD drawing
+            ws.Cells[1, columnNumber] = fileName;
 
             using (Transaction trans = db.TransactionManager.StartTransaction())
             {
@@ -98,7 +101,7 @@ namespace projectMAE
                     //opening the block table record
                     BlockTableRecord model = trans.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForRead) as BlockTableRecord;
 
-                    int rownumber = 1;
+                    int rownumber = 2;
 
                     foreach (ObjectId id in model)
                     {
