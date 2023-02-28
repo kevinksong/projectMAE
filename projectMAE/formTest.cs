@@ -22,7 +22,7 @@ namespace projectMAE
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void browseButton_Click(object sender, EventArgs e)
         {
             //Browse
             var filePath = string.Empty;
@@ -40,7 +40,10 @@ namespace projectMAE
                     {
                         txtDirectory.Text = file;
                         //listBox1.Items.Add(Path.GetFileName(file));
-                        listBox1.Items.Add(file);
+                        if (listBox1.Items.Contains(file) == false)
+                        {
+                            listBox1.Items.Add(file);
+                        }
                     }
                 }
             }
@@ -51,17 +54,12 @@ namespace projectMAE
 
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void readButton_Click(object sender, EventArgs e)
         {
 
             //Create excel file in desired location
@@ -98,7 +96,7 @@ namespace projectMAE
             Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             //Cancel
             this.DialogResult = DialogResult.Cancel;
@@ -119,5 +117,12 @@ namespace projectMAE
 
         }
 
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            for (int n = listBox1.Items.Count - 1; n >= 0; --n)
+            {
+                    listBox1.Items.RemoveAt(n);
+            }
+        }
     }
 }
