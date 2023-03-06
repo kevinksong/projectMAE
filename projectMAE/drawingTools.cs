@@ -128,6 +128,10 @@ namespace projectMAE
             }
             wb.Save();
         }
+        public static void ReadExcel()
+        {
+
+        }
     }
 
 }
