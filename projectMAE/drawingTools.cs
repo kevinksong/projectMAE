@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.Interop;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -91,7 +92,7 @@ namespace projectMAE
             ws = wb.Worksheets[1];
 
             //first cell in each column is reserved for the filename of associated AutoCAD drawing
-            ws.Cells[1, columnNumber] = fileName;
+            ws.Cells[1, columnNumber] = Path.GetFileNameWithoutExtension(fileName);
 
             using (Transaction trans = db.TransactionManager.StartTransaction())
             {
@@ -130,7 +131,9 @@ namespace projectMAE
         }
         public static void ReadExcel()
         {
-
+            DocumentCollection acDocMgr = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager;
+            Document acDoc = acDocMgr.Add("your file name");
+            acDocMgr.MdiActiveDocument = acDoc;
         }
     }
 
